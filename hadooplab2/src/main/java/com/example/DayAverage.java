@@ -26,7 +26,7 @@ public class DayAverage {
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             String[] columns = value.toString().split("\t");
             if (columns.length != 2) {
-                return; // 跳过无效行
+                return; 
             }
 
             try {
@@ -36,12 +36,12 @@ public class DayAverage {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
                 int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK); // 获取星期几
-                String weekDayStr = weekDays[dayOfWeek - 1]; // 转换为字符串，如 "Sunday"
+                String weekDayStr = weekDays[dayOfWeek - 1]; 
                 
                 weekday.set(weekDayStr);
-                flowAmounts.set(columns[1]); // 设置资金流入和流出量
+                flowAmounts.set(columns[1]);
                 
-                context.write(weekday, flowAmounts); // 输出<weekday, 资金流入量,资金流出量>
+                context.write(weekday, flowAmounts); 
             } catch (ParseException e) {
                 System.err.println("Error parsing date in line: " + value.toString());
             }
@@ -81,8 +81,7 @@ public class DayAverage {
 
         @Override
         protected void cleanup(Context context) throws IOException, InterruptedException {
-            // 对 weekdayMap 按平均资金流入量降序排序
-            List<Map.Entry<String, double[]>> sortedList = new ArrayList<>(weekdayMap.entrySet());
+            List<Map.Entry<String, double[]>> sortedList = new ArrayList<>(weekdayMap.entrySet());// 对 weekdayMap 按平均资金流入量降序排序
             sortedList.sort(new Comparator<Map.Entry<String, double[]>>() {
                 @Override
                 public int compare(Map.Entry<String, double[]> o1, Map.Entry<String, double[]> o2) {

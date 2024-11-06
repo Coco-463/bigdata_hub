@@ -21,7 +21,6 @@ public class FundsInOut {
         private double purchase = 0.0;
         private double redeem = 0.0;
 
-        // 无参构造函数
         public Amounts() {}
 
         public void set(double purchase, double redeem) {
@@ -68,7 +67,7 @@ public class FundsInOut {
                 double purchase = parseDouble(fields[4]); // total_purchase_amt
                 double redeem = parseDouble(fields[8]); // total_redeem_amt
 
-                amounts = new Amounts(); // 每次使用新对象
+                amounts = new Amounts(); 
                 amounts.set(purchase, redeem);
                 context.write(date, amounts);
             }
@@ -81,7 +80,7 @@ public class FundsInOut {
             try {
                 return Double.parseDouble(value);
             } catch (NumberFormatException e) {
-                return 0.0; // 如果解析失败，返回 0.0
+                return 0.0; 
             }
         }
     }

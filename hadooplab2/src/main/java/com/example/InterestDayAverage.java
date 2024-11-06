@@ -38,11 +38,10 @@ public class InterestDayAverage {
                 flowValue.set(inflow);
                 context.write(intervalKey, new DoubleWritable(inflow));
 
-                flowValue.set(-outflow);  // Use negative values for outflow
+                flowValue.set(-outflow); 
                 context.write(intervalKey, flowValue);
 
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                // Ignore malformed lines
             }
         }
 
@@ -68,7 +67,7 @@ public class InterestDayAverage {
                 if (flow > 0) {
                     totalInflow += flow;
                 } else {
-                    totalOutflow += -flow; // Convert back to positive for outflow
+                    totalOutflow += -flow; 
                 }
                 count++;
             }

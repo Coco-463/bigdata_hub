@@ -27,19 +27,18 @@ public class ActiveDay {
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             String[] columns = value.toString().split(",");
 
-            // 检查是否符合条件
             if (columns.length < 9 || columns[0].equals("user_id")) {
-                return; // 跳过表头或无效行
+                return; 
             }
 
             try {
-                userId.set(columns[0]); // 设置用户ID
+                userId.set(columns[0]);
                 double directPurchaseAmt = Double.parseDouble(columns[5]);
                 double totalRedeemAmt = Double.parseDouble(columns[8]);
 
                 // 判断活跃条件
                 if (directPurchaseAmt > 0 || totalRedeemAmt > 0) {
-                    context.write(userId, one); // 输出活跃用户
+                    context.write(userId, one); 
                 }
             } catch (NumberFormatException e) {
                 System.err.println("Error parsing numeric values in line: " + value.toString());
@@ -66,7 +65,7 @@ public class ActiveDay {
             Collections.sort(sortedList, new Comparator<Map.Entry<String, Integer>>() {
                 @Override
                 public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                    return o2.getValue().compareTo(o1.getValue()); // 降序排序
+                    return o2.getValue().compareTo(o1.getValue()); 
                 }
             });
 
